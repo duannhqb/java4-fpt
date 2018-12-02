@@ -1,0 +1,84 @@
+.container.shopping-cart {
+    min-height: 500px;
+    margin-top: 100px;
+}
+
+.shopping-cart .button{
+    margin: 0 -20px;
+    width: 150px;
+    font-size: 15px; 
+}
+
+.actions .button{
+    width: 35px;
+    height: 35px;
+    padding: 0px;
+    margin: 0px 5px;
+}
+
+.btn:focus, .btn:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/*
+.shopping-cart .ripples{
+    background-color: none;
+}
+
+.shopping-cart .btn-warning{
+    background-color: #e49931;
+}
+
+.shopping-cart .btn-warning:hover{
+    background-color: #c38126;
+}
+
+.shopping-cart .btn-success{
+    background-color: #32c132;
+}
+
+.shopping-cart .btn-success:hover{
+    background-color: #1c9e1c;
+}*/
+
+.shopping-cart .fa{
+    margin: 0 10px;
+}
+
+.table>tbody>tr>td, .table>tfoot>tr>td{
+    vertical-align: middle;
+}
+@media screen and (max-width: 600px) {
+    table#cart tbody td .form-control{
+        width:20%;
+        display: inline !important;
+    }
+    .actions .btn{
+        width:36%;
+        margin:1.5em 0;
+    }
+
+    .actions .btn-info{
+        float:left;
+    }
+    .actions .btn-danger{
+        float:right;
+    }
+
+    table#cart thead { display: none; }
+    table#cart tbody td { display: block; padding: .6rem; min-width:320px;}
+    table#cart tbody tr td:first-child { background: #333; color: #fff; }
+    table#cart tbody td:before {
+        content: attr(data-th); font-weight: bold;
+        display: inline-block; width: 8rem;
+    }
+
+    table#cart tfoot td{display:block; }
+    table#cart tfoot td .btn{display:block;}
+
+}
+
+
+/*#registration .buttonBlue:hover { background: #357bd8; }*/
+
