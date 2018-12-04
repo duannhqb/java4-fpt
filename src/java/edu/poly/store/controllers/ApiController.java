@@ -6,8 +6,9 @@
 package edu.poly.store.controllers;
 
 import edu.poly.store.domain.ShoppingCart;
+import edu.poly.store.domain.Users;
+import edu.poly.store.service.UsersService;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -40,6 +41,7 @@ public class ApiController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
         shoppingCart = new ShoppingCart();
+        UsersService usersService;
         if (action.equals("add-to-cart")) {
             addProductToCart(request, response);
             return;
@@ -55,6 +57,62 @@ public class ApiController extends HttpServlet {
         } else if (action.equals("dem-gio-hang")) {
             demGioHang(request, response);
             return;
+        } else if (action.equals("dang-nhap")) {
+            usersService = new UsersService();
+            processLogin(usersService, request, response);
+            return;
+        } else if (action.equals("registration")) {
+            usersService = new UsersService();
+            registrationUser(usersService, request, response);
+            return;
+        }
+    }
+
+    private void registrationUser(UsersService usersService, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String fullName = request.getParameter("fullName");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String numberPhone = request.getParameter("numberPhone");
+        String address = request.getParameter("address");
+        String role = request.getParameter("role");
+        String email = request.getParameter("email");
+
+        Users user = new Users();
+        user.setFullName(fullName);
+        user.setAddress(address);
+        user.setRole(Boolean.parseBoolean(role));
+        user.setUsername(username);
+        user.setNumberPhone(numberPhone);
+        user.setPassword(password);
+        user.setEmail(email);
+
+        if (usersService.addUser(user) == null) {
+            request.setAttribute("dangKi", "Đăng ký thất bại!");
+            request.getRequestDispatcher("VIEWS/apiView.jsp").forward(request, response);
+        } else {
+            request.setAttribute("dangKi", "Đăng ký thành công!");
+            request.getRequestDispatcher("VIEWS/apiView.jsp").forward(request, response);
+        }
+
+    }
+
+    private void processLogin(UsersService usersService, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        Users user = null;
+        try {
+            user = usersService.checkLogin(username, password);
+        } catch (Exception e) {
+        }
+        if (user == null) {
+            request.setAttribute("infoLogin", "Thông tin đăng nhập sai!!!");
+            request.getRequestDispatcher("VIEWS/apiView.jsp").forward(request, response);
+        } else {
+            request.getSession().setAttribute("user", user);
+            request.setAttribute("infoLogin", "loginok");
+            request.getRequestDispatcher("VIEWS/apiView.jsp").forward(request, response);
         }
     }
 
@@ -68,8 +126,14 @@ public class ApiController extends HttpServlet {
             throws ServletException, IOException {
         Integer productId = Integer.parseInt(request.getParameter("productId"));
         shoppingCart.setProductId(productId);
-        listCart.remove(checkDoubleIdProduct(shoppingCart));
-        layTongTien(request, response);
+        try {
+            listCart.remove(checkDoubleIdProduct(shoppingCart));
+            if (listCart.size() == 0) {
+                request.getSession().removeAttribute("totalPrice");
+            }
+            layTongTien(request, response);
+        } catch (Exception e) {
+        }
     }
 
     private void layTongTien(HttpServletRequest request, HttpServletResponse response)

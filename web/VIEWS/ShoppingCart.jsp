@@ -51,7 +51,7 @@
                         <td colspan="2" class="hidden-xs"></td>
                         <td class="hidden-xs text-center"><strong>Tổng cộng: </strong><strong class="tongCong">${totalPrice} VNĐ</strong></td>
                         <td>
-                            <a href="ProductController?action=go-to-check-out" class="button buttonBlue btn-block btn-success">Check out
+                            <a href="ProductController?action=go-to-thanh-toan" class="button buttonBlue btn-block btn-success">Thanh toán
                                 <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
                             </a>
                         </td>

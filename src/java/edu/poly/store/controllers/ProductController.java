@@ -35,8 +35,7 @@ public class ProductController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         ProductService productService = new ProductService();
         String action = request.getParameter("action");
-
-        if (action == null) {
+        if (action == null || action.equals("go-to-home")) {
             showListProduct(productService, request, response);
             return;
         } else if (action.equals("go-to-view-product")) {
@@ -45,15 +44,28 @@ public class ProductController extends HttpServlet {
         } else if (action.equals("go-to-shopping-cart")) {
             showShoppingCartPage(request, response);
             return;
-        } else if (action.equals("go-to-check-out")) {
-            showCheckOutPage(request, response);
+        } else if (action.equals("go-to-thanh-toan")) {
+            showThanhToanPage(request, response);
+            return;
+        } else if (action.equals("go-to-dat-hang")) {
+            showDatHangPage(request, response);
             return;
         }
     }
 
-    public void showCheckOutPage(HttpServletRequest request, HttpServletResponse response)
+    public void showDatHangPage(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("VIEWS/CheckOut.jsp").forward(request, response);
+        request.getRequestDispatcher("VIEWS/DatHang.jsp").forward(request, response);
+    }
+
+    public void showThanhToanPage(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        if (null == request.getSession().getAttribute("user")) {
+            request.getRequestDispatcher("VIEWS/Login.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("VIEWS/ThongTinThanhToan.jsp").forward(request, response);
+        }
     }
 
     public void showShoppingCartPage(HttpServletRequest request, HttpServletResponse response)

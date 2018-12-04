@@ -1,11 +1,14 @@
 package edu.poly.store.domain;
-// Generated Nov 25, 2018 10:46:09 PM by Hibernate Tools 4.3.1
+// Generated Dec 4, 2018 4:57:47 PM by Hibernate Tools 4.3.1
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,8 +20,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Product",
-         schema = "dbo",
-         catalog = "ManagerPhone_ASS_JAVA4"
+        schema = "dbo",
+        catalog = "ManagerPhone_ASS4"
 )
 public class Product implements java.io.Serializable {
 
@@ -26,7 +29,7 @@ public class Product implements java.io.Serializable {
     private Category category;
     private String productName;
     private String image;
-    private Double price;
+    private String price;
     private Integer quantity;
     private Set<CartDetail> cartDetails = new HashSet<CartDetail>(0);
 
@@ -37,7 +40,7 @@ public class Product implements java.io.Serializable {
         this.productId = productId;
     }
 
-    public Product(int productId, Category category, String productName, String image, Double price, Integer quantity, Set<CartDetail> cartDetails) {
+    public Product(int productId, Category category, String productName, String image, String price, Integer quantity, Set<CartDetail> cartDetails) {
         this.productId = productId;
         this.category = category;
         this.productName = productName;
@@ -48,7 +51,7 @@ public class Product implements java.io.Serializable {
     }
 
     @Id
-
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ProductID", unique = true, nullable = false)
     public int getProductId() {
         return this.productId;
@@ -68,7 +71,7 @@ public class Product implements java.io.Serializable {
         this.category = category;
     }
 
-    @Column(name = "ProductName", length = 50)
+    @Column(name = "ProductName")
     public String getProductName() {
         return this.productName;
     }
@@ -87,11 +90,11 @@ public class Product implements java.io.Serializable {
     }
 
     @Column(name = "Price", precision = 53, scale = 0)
-    public Double getPrice() {
+    public String getPrice() {
         return this.price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

@@ -3,3 +3,5 @@ ${quantityCart.size()}
 ${price}
 ${tongTien}
 ${soLuong}
+${infoLogin}
+${dangKi}

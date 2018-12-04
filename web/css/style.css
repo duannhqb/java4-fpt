@@ -80,48 +80,25 @@ body #wrapper {
     margin-top: -120px;
     position: fixed;
     top: 161px;
-    right: 270px;
     z-index: 1;
 }
+
+.header-menu-store .navbar .navbar-right{
+    margin-right: -325px;
+}
+
 
 .header-icon-right {
     height: 22px;
     width: 22px
 }
 
-#badge-bell {
-    right: 212px;
-}
-
 #badge-bag {
-    right: 152px;
-}
-
-.header-menu-store .row .navbar .nav #number-store {
-    transform: translateX(-15px);
-    font-size: 16px;
-    margin-right: -12px !important;
-}
-
-.header-menu-store .row .navbar .nav .number {
-    color: #fd694c;
+    right: 50px;
 }
 
 .header-menu-store .dropdown-menu-right {
     transform: translate(76%, 6%);
-}
-
-.header-menu-store .dropdown-menu-right-number{
-    transform: translate(-8%, 2.5%);
-}
-
-.header-menu-store .number-icon {
-    margin-left: -25px !important;
-    box-sizing: border-box;
-}
-
-.header-menu-store .number-icon img{
-    height: 20px;
 }
 
 .header-menu-store .store-cicle {
@@ -436,3 +413,14 @@ section .section-title {
 }
 
 /* end footer */
+
+.input-group-addon.beautiful input[type="checkbox"],
+.input-group-addon.beautiful input[type="radio"] {
+    display: none;
+}
+
+/*thanh toan*/
+
+#thongtinthanhtoan{
+    margin-top: 60px;
+}

@@ -1,9 +1,4 @@
-<%-- 
-    Document   : template
-    Created on : Nov 18, 2018, 8:44:56 AM
-    Author     : duann
---%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="en">
@@ -50,8 +45,15 @@
                                             <div class="col-md-6 hidden-xs">
                                                 <div class="navbar-header navbar-right">
                                                     <ul class="nav nav-pills">
-                                                        <a href="loginPage.jsp" class="nav-text-right material-click material-on-me">Đăng nhập</a> | 
-                                                        <a href="registrationPage.jsp" class="nav-text-right material-click material-on-me">Đăng ký</a> | 
+                                                        <c:if test="${empty user}">
+                                                            <a href="UserController?action=go-to-login" class="nav-text-right material-click material-on-me">Đăng nhập</a> | 
+                                                            <a href="UserController?action=go-to-registration" class="nav-text-right material-click material-on-me">Đăng ký</a> | 
+                                                        </c:if>
+                                                        <c:if test="${not empty user}">
+                                                            <a href="UserController?action=go-to-profe" class="nav-text-right material-click material-on-me">Chào ${user.fullName}</a> | 
+                                                            <a href="UserController?action=logout" class="nav-text-right material-click material-on-me">Đăng xuất</a> | 
+                                                        </c:if>
+
                                                         <a class="nav-text-right material-click material-on-me">Trợ giúp</a>
                                                     </ul>
                                                 </div>
@@ -91,35 +93,13 @@
                                             </div>
 
                                             <div class="col-sm-4 navbar-right">
-                                                <ul class="nav navbar-nav navbar-right">
-
+                                                <ul class="nav navbar-nav">
                                                     <li class="dropdown store-cicle blink-light">
-                                                        <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img
+                                                        <a href="ProductController?action=go-to-shopping-cart"><img
                                                                 class="header-icon-right" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAN/SURBVGhD7ZppqA5RHIevfcmSsmbJkkJSZElkjSihFOqKLwhJSZIQSQqlCJG1RLKkrImkEOID4gNFIVsSsu9+zz+nrvvOzDtzcOcoTz11fzPnzP3PvfedOcst+U88DeR0eUzelx/lS3lTbpRDZCUZLJXlHPlCfi/iBdlDBkddeUi6Qg/LcbK5rCpryy5ynrwnafNBTpLBUEUelRT3UPaTSdSQy+W3n46RQbBYchMPZCsOpITPEf3eyjYcyJOm8o38Kn3+5rdKbmaXpRxZKClkp6XsNJHuB8HXuXFZciODLfmxV3KNyZZygnfEF1nNkh8zJDeyzlIONJIU8NiSPyMl1zlgKQd4QlEA74Xfoa/kOkcs/SVay7YxugJ4d0SdT+tYyXVOlzkWZUPpBS8uvkEo7pBetJNcgA/0nQjdUONzmWM+8hvlOrwYk87zG/NioOQCZy0VUlGfkQ6S87cteTBRcoHdlgqpqBupIznPINOLBZILrLBUyCLpvgG/PV+2Sa7zTHbiQATPJW0aW8oIkyA6z7T0K7UkN8B5PCN9cH82TsZeUVyVnO9uKSNuaM4LqzzMMdxPCQ9KH1rIT9JdZ6WMgvkN50dbysh1SeeulgoZIHmS7JctOeAJEzAeKFtkfQ5EsF5SyyxLGXFTVu8X0R9kvqSWVZYyUE/S8Z2l/CmV1LPHUgZ4etDxlqX8YfpMPectZWCYpONJS/nDVJh6WF7KxBRJR57xIVBdMotk7sMTMzVLJTeyxFIYPJLUlOkJuV3SKdfpZzkuSmrqYyklpySdhloKg32SmsZbSgkjTTp1tBQGqyU1zbWUkveSTow8Q2G2pKa1llLgFhUYS4UES6vUlXpc103S4ZqlcOgpqeuKpRSMknRgxBkSzSR1PbWUAuYfdNhgKRzYHGL9gNpqcqAYzAlozIgzNO5KamtvqQjM0Wk8wVJYMBOltkGWinBO0ri/pbBg1Z/aUu10ufWq3DdfImCni9pY+EiEbTQW3BhpMuIMjWmSG9lkKQEWA2jISDNERkjqO24pgd6ShpcshQc7w9R3w1ICrGjQkJWREOGfEajvlaUE2PCnISPNUHktqTFu6chYI2nESDNU+FcQauxsKQa2v2gUzCZ+BCckNQ63FIPbpe1lKUw2S2qcaimGJ5JGjLNoGKJuTXqZjCS0rbZixm7F8WjjjfmvWGZBu6TkB688gEjrDiUnAAAAAElFTkSuQmCC">
-                                                            <span class="badge" id="badge-bag">${shoppingCart.size()}</span></a>    
-                                                        <ul class="dropdown-menu dropdown-menu-right">
-                                                            <li><a href="ProductController?action=go-to-shopping-cart">Shopping cart</a></li>
-                                                            <li><a href="#">Another action</a></li>
-                                                            <li><a href="#">Something else here</a></li>
-                                                            <li role="separator" class="divider"></li>
-                                                            <li><a href="#">Separated link</a></li>
-                                                        </ul>
+                                                            <span class="badge" id="badge-bag">${shoppingCart.size()}</span>
+                                                        </a>    
                                                     </li>
-
-                                                    <li class="dropdown">
-                                                    <li id="number-store" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                                        <a href="#"><span class="number tongCong">${totalPrice==null ? 0 : totalPrice} VNĐ</span></a>
-                                                    </li>
-                                                    <li class="number-icon" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                                        <a href="#"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAD0SURBVGhD7dI9CsJAEIbhdNqoJ7DLCZKQIk3uYekBPIBH8S523kJsbLyEqLOwH0gwMZr9mYXvgYVk2GJe2IyIiIiI6Gdt287zPJ/ZX3XKslzZz2FFUVzl8rmqqrUdqSE7bWW/u5y9HfWTiKOcp1y+aIoxEbLXwxzZbWPH/eq6XsrFk6aYTsTOjr/TFPN3BGiImRwBMWOcRUCMGOcREDLGWwSEiPEeAT5jgkWAj5jgEeAyJloEuIiJHgFTYtREwD8x6iKgaZrF2Bi1ETAmRn0EDMUkEwGfYpKLgE7MLckIeI9JNgJMjEQczNOyIyIiIiIimijLXkOD4PbRY89EAAAAAElFTkSuQmCC"></a>
-                                                    </li>
-                                                    <ul class="dropdown-menu dropdown-menu-right-number">
-                                                        <li><a href="#">Action</a></li>
-                                                        <li><a href="#">Another action</a></li>
-                                                        <li><a href="#">Something else here</a></li>
-                                                        <li role="separator" class="divider"></li>
-                                                        <li><a href="#">Separated link</a></li>
-                                                    </ul>
                                                 </ul>
                                             </div>
                                         </div>

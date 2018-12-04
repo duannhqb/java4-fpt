@@ -3,7 +3,6 @@
 
 <div class="login">
     <form>
-        <input type="hidden" name="action" value="login"/>
         <div class="group">
             <input type="text" id="name"><span class="highlight"></span><span class="bar"></span>
             <label>Tên đăng nhập</label>
@@ -12,11 +11,11 @@
             <input type="password" id="pass"><span class="highlight"></span><span class="bar"></span>
             <label>Mật khẩu</label>
         </div>
-        <button type="submit" id="login" class="button buttonBlue">Đăng nhập
+        <button id="login" class="button buttonBlue">Đăng nhập
             <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
         </button>
+        <h4 style="color: red" class="text-center mb-3 mt-3" id="result"></h4>
     </form>
-    <h1 id="result"></h1>
 </div>
 
 <%@include file="../Common/footer.jsp" %>

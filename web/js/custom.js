@@ -122,3 +122,60 @@ $('.btn-danger').click(function () {
         });
     });
 });
+
+
+//  xử lý login
+$('#login').click(function () {
+    let username = $('#name').val();
+    let password = $('#pass').val();
+
+    $.ajax({
+        type: 'GET',
+        url: "/Duannhpd02217_ASS_JAVA4/ApiController",
+        data: {
+            action: "dang-nhap",
+            username: username,
+            password: password
+        },
+        success: function (value) {
+            if (value.indexOf("loginok") !== -1) {
+                $(location).attr('href', 'ProductController');
+            } else {
+                $('#result').text(value);
+            }
+        }
+    });
+
+    return false;
+});
+
+// xử lý đăng ký
+$('#event-registration').click(function () {
+    let fullName = $('#fullName').val();
+    let username = $('#username').val();
+    let password = $('#password').val();
+    let email = $('#email').val();
+    let numberPhone = $('#numberPhone').val();
+    let address = $('#address').val();
+    let role = $('#role').val();
+
+    $.ajax({
+        type: 'GET',
+        url: "/Duannhpd02217_ASS_JAVA4/ApiController",
+        data: {
+            action: "registration",
+            username: username,
+            fullName: fullName,
+            password: password,
+            numberPhone: numberPhone,
+            address: address,
+            role: role,
+            email: email
+        },
+        success: function (value) {
+            $('#result-registration').text(value);
+        }
+    });
+
+    return false;
+});

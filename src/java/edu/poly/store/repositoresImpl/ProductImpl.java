@@ -13,11 +13,18 @@ import java.util.List;
  * @author duann
  */
 public interface ProductImpl {
+
     public Product addProduct(Product product);
+
     public Product updateProduct(Product product);
+
     public void removeProduct(int id);
+
     public List<Product> listProduct();
+
     public List<Product> findProduct(String productName);
+
     public Product getProductById(int id);
+
     public List<Product> listProductLimit(int gioiHan);
 }
