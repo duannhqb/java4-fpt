@@ -72,9 +72,9 @@
             <div class="col-xs-12">
                 <div class="col-md-12">
                     <h3 class="text-center" style="margin-top: 50px;" id="result-registration"></h3>
-                    <button type="button" class="button buttonBlue btn-success pull-right">Finish!
+                    <a href="UserController?action=go-to-login" class="button buttonBlue btn-success pull-right">Bấm vào đây để đăng nhập
                         <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>

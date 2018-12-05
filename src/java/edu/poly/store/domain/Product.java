@@ -1,7 +1,6 @@
 package edu.poly.store.domain;
-// Generated Dec 4, 2018 4:57:47 PM by Hibernate Tools 4.3.1
+// Generated Dec 4, 2018 9:23:17 PM by Hibernate Tools 4.3.1
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -21,7 +20,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Product",
         schema = "dbo",
-        catalog = "ManagerPhone_ASS4"
+        catalog = "ManagerPhone"
 )
 public class Product implements java.io.Serializable {
 
@@ -29,7 +28,7 @@ public class Product implements java.io.Serializable {
     private Category category;
     private String productName;
     private String image;
-    private String price;
+    private Integer price;
     private Integer quantity;
     private Set<CartDetail> cartDetails = new HashSet<CartDetail>(0);
 
@@ -40,7 +39,7 @@ public class Product implements java.io.Serializable {
         this.productId = productId;
     }
 
-    public Product(int productId, Category category, String productName, String image, String price, Integer quantity, Set<CartDetail> cartDetails) {
+    public Product(int productId, Category category, String productName, String image, Integer price, Integer quantity, Set<CartDetail> cartDetails) {
         this.productId = productId;
         this.category = category;
         this.productName = productName;
@@ -89,12 +88,12 @@ public class Product implements java.io.Serializable {
         this.image = image;
     }
 
-    @Column(name = "Price", precision = 53, scale = 0)
-    public String getPrice() {
+    @Column(name = "Price")
+    public Integer getPrice() {
         return this.price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 

@@ -14,7 +14,7 @@ public class ShoppingCart implements java.io.Serializable {
     private String productName;
     private String categoryName;
     private int productId;
-    private float price;
+    private int price;
     private int quantity;
 
     public String getProductName() {
@@ -41,11 +41,11 @@ public class ShoppingCart implements java.io.Serializable {
         this.productId = productId;
     }
 
-    public float getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

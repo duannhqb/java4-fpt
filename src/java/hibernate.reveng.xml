@@ -40,10 +40,10 @@ made subject to such option by the copyright holder.
 Contributor(s):
 -->
 <hibernate-reverse-engineering>
-  <schema-selection match-catalog="ManagerPhone_ASS4" match-schema="dbo"/>
-  <table-filter match-name="Users"/>
-  <table-filter match-name="Cart"/>
-  <table-filter match-name="CartDetail"/>
+  <schema-selection match-catalog="ManagerPhone" match-schema="dbo"/>
   <table-filter match-name="Category"/>
+  <table-filter match-name="Users"/>
   <table-filter match-name="Product"/>
+  <table-filter match-name="CartDetail"/>
+  <table-filter match-name="Cart"/>
 </hibernate-reverse-engineering>

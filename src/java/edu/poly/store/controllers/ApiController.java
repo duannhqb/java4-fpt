@@ -65,7 +65,26 @@ public class ApiController extends HttpServlet {
             usersService = new UsersService();
             registrationUser(usersService, request, response);
             return;
+        } else if (action.equals("remove-shopping-cart")) {
+            removeShoppingCart(request, response);
+            return;
+        } else if (action.equals("remove-user-dashboad")) {
+            usersService = new UsersService();
+            removeUserInDashboad(usersService, request, response);
+            return;
         }
+    }
+
+    private void removeUserInDashboad(UsersService usersService, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int userId = Integer.parseInt(request.getParameter("userId"));
+        usersService.removeUser(userId);
+    }
+
+    private void removeShoppingCart(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        listCart.removeAll(listCart);
+        request.getRequestDispatcher("VIEWS/ShoppingStatus.jsp").forward(request, response);
     }
 
     private void registrationUser(UsersService usersService, HttpServletRequest request, HttpServletResponse response)
@@ -138,7 +157,7 @@ public class ApiController extends HttpServlet {
 
     private void layTongTien(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        float total = 0;
+        Integer total = 0;
         for (ShoppingCart shoppingCart1 : listCart) {
             total += shoppingCart1.getPrice() * shoppingCart1.getQuantity();
         }
@@ -148,7 +167,7 @@ public class ApiController extends HttpServlet {
 
     private void tongTien(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        float total = 0;
+        Integer total = 0;
         for (ShoppingCart shoppingCart1 : listCart) {
             total += shoppingCart1.getPrice() * shoppingCart1.getQuantity();
         }
@@ -162,7 +181,7 @@ public class ApiController extends HttpServlet {
         shoppingCart.setProductId(productId);
         listCart.get(checkDoubleIdProduct(shoppingCart)).setQuantity(quantity);
 
-        float tongTien = quantity * listCart.get(checkDoubleIdProduct(shoppingCart)).getPrice();
+        Integer tongTien = quantity * listCart.get(checkDoubleIdProduct(shoppingCart)).getPrice();
 
         tongTien(request, response);
 
@@ -176,7 +195,7 @@ public class ApiController extends HttpServlet {
         String categoryName = request.getParameter("categoryName");
         Integer productId = Integer.parseInt(request.getParameter("productId"));
         Integer quantity = Integer.parseInt(request.getParameter("quantity"));
-        float price = Float.parseFloat(request.getParameter("price"));
+        Integer price = Integer.parseInt(request.getParameter("price"));
 
         shoppingCart.setProductName(productName);
         shoppingCart.setCategoryName(categoryName);

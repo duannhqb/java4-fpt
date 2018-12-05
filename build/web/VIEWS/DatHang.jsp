@@ -62,30 +62,34 @@
             <div class="col-md-5">
                 <div class="panel panel-default">
                     <div class="panel-heading">Chọn hình thức thanh toán</div>
-                    <div class="panel-body">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <div class="radio">
-                                            <label><input type="radio" name="optradio" checked>Thanh toán tại nhà.</label>
+                    <form action="CartController">
+                        <div class="panel-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <div class="radio">
+                                                <label><input type="radio" name="kieutThanhToan" value="false" checked>Thanh toán tại nhà.</label>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="form-group">
-                                        <div class="radio">
-                                            <label><input type="radio" name="optradio">Thanh toán tại cửa hàng.</label>
+                                        <div class="form-group">
+                                            <div class="radio">
+                                                <label><input type="radio" name="kieutThanhToan" value="true">Thanh toán tại cửa hàng.</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="panel-footer">
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-primary btn-block" id="update" value="Đặt hàng"/>
+                        <div class="panel-footer">
+                            <div class="form-group">
+                                <input type="hidden" name="action" value="dat-hang"/>
+                                <input type="submit" class="btn btn-primary btn-block" id="update" value="Đặt hàng"/>
+                                <h1 style="color: red;">${infCart}</h1>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

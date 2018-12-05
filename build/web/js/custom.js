@@ -160,7 +160,7 @@ $('#event-registration').click(function () {
     let role = $('#role').val();
 
     $.ajax({
-        type: 'GET',
+        type: 'POST',
         url: "/Duannhpd02217_ASS_JAVA4/ApiController",
         data: {
             action: "registration",
@@ -174,6 +174,28 @@ $('#event-registration').click(function () {
         },
         success: function (value) {
             $('#result-registration').text(value);
+        }
+    });
+
+    return false;
+});
+
+
+
+//  Xóa user in dashboad
+$('.remove-user-dashboad').click(function () {
+    let ss = $(this);
+    let userId = $(this).closest('tr').find('.userId').text();
+
+    $.ajax({
+        type: 'POST',
+        url: "/Duannhpd02217_ASS_JAVA4/ApiController",
+        data: {
+            action: "remove-user-dashboad",
+            userId: userId
+        },
+        success: function () {
+            ss.closest('tr').remove();
         }
     });
 

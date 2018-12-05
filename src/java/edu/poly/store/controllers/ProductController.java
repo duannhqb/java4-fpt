@@ -50,15 +50,34 @@ public class ProductController extends HttpServlet {
         } else if (action.equals("go-to-dat-hang")) {
             showDatHangPage(request, response);
             return;
+        } else if (action.equals("go-to-list-form")) {
+            showListPage(productService, request, response);
+            return;
+        } else if (action.equals("go-to-edit-form")) {
+            showEditPage(productService, request, response);
+            return;
         }
     }
 
-    public void showDatHangPage(HttpServletRequest request, HttpServletResponse response)
+    private void showEditPage(ProductService productService, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int productId = Integer.parseInt(request.getParameter("productId"));
+        request.setAttribute("product", productService.getProductById(productId));
+        request.getRequestDispatcher("Product/edit.jsp").forward(request, response);
+    }
+
+    private void showListPage(ProductService productService, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setAttribute("listProduct", productService.listProduct());
+        request.getRequestDispatcher("Product/list.jsp").forward(request, response);
+    }
+
+    private void showDatHangPage(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getRequestDispatcher("VIEWS/DatHang.jsp").forward(request, response);
     }
 
-    public void showThanhToanPage(HttpServletRequest request, HttpServletResponse response)
+    private void showThanhToanPage(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         if (null == request.getSession().getAttribute("user")) {
@@ -68,19 +87,19 @@ public class ProductController extends HttpServlet {
         }
     }
 
-    public void showShoppingCartPage(HttpServletRequest request, HttpServletResponse response)
+    private void showShoppingCartPage(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getRequestDispatcher("VIEWS/ShoppingCart.jsp").forward(request, response);
     }
 
-    public void showProduct(ProductService productService, HttpServletRequest request, HttpServletResponse response)
+    private void showProduct(ProductService productService, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Integer productId = Integer.parseInt(request.getParameter("productId"));
         request.setAttribute("product", productService.getProductById(productId));
         request.getRequestDispatcher("VIEWS/ViewProduct.jsp").forward(request, response);
     }
 
-    public void showListProduct(ProductService productService, HttpServletRequest request, HttpServletResponse response)
+    private void showListProduct(ProductService productService, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setAttribute("product", productService.listProductLimit(12));
         request.getRequestDispatcher("VIEWS/TrangChu.jsp").forward(request, response);

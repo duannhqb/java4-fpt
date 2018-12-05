@@ -47,8 +47,8 @@ Contributor(s):
     <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-    <property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;databaseName=ManagerPhone_ASS4;useUnicode=true;characterEncoding=UTF-8</property>
-    <!--<property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;databaseName=ManagerPhone_ASS4</property>-->
+    <!--<property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;databaseName=ManagerPhone</property>-->
+    <property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;databaseName=ManagerPhone;useUnicode=true;characterEncoding=UTF-8</property>
     <property name="hibernate.connection.username">sa</property>
     <property name="hibernate.connection.password">123456</property>
     <mapping class="edu.poly.store.domain.Category"/>

@@ -1,5 +1,5 @@
 package edu.poly.store.domain;
-// Generated Dec 4, 2018 4:57:47 PM by Hibernate Tools 4.3.1
+// Generated Dec 4, 2018 9:23:17 PM by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -22,16 +22,17 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "Cart",
-        schema = "dbo",
-        catalog = "ManagerPhone_ASS4"
+         schema = "dbo",
+         catalog = "ManagerPhone"
 )
 public class Cart implements java.io.Serializable {
 
     private int cartId;
     private Users users;
     private Date paymentDate;
-    private String total;
+    private Integer total;
     private Boolean cartStatus;
+    private Boolean cachThanhToan;
     private Set<CartDetail> cartDetails = new HashSet<CartDetail>(0);
 
     public Cart() {
@@ -41,12 +42,13 @@ public class Cart implements java.io.Serializable {
         this.cartId = cartId;
     }
 
-    public Cart(int cartId, Users users, Date paymentDate, String total, Boolean cartStatus, Set<CartDetail> cartDetails) {
+    public Cart(int cartId, Users users, Date paymentDate, Integer total, Boolean cartStatus, Boolean cachThanhToan, Set<CartDetail> cartDetails) {
         this.cartId = cartId;
         this.users = users;
         this.paymentDate = paymentDate;
         this.total = total;
         this.cartStatus = cartStatus;
+        this.cachThanhToan = cachThanhToan;
         this.cartDetails = cartDetails;
     }
 
@@ -81,12 +83,12 @@ public class Cart implements java.io.Serializable {
         this.paymentDate = paymentDate;
     }
 
-    @Column(name = "Total", precision = 53, scale = 0)
-    public String getTotal() {
+    @Column(name = "Total")
+    public Integer getTotal() {
         return this.total;
     }
 
-    public void setTotal(String total) {
+    public void setTotal(Integer total) {
         this.total = total;
     }
 
@@ -97,6 +99,15 @@ public class Cart implements java.io.Serializable {
 
     public void setCartStatus(Boolean cartStatus) {
         this.cartStatus = cartStatus;
+    }
+
+    @Column(name = "CachThanhToan")
+    public Boolean getCachThanhToan() {
+        return this.cachThanhToan;
+    }
+
+    public void setCachThanhToan(Boolean cachThanhToan) {
+        this.cachThanhToan = cachThanhToan;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "cart")

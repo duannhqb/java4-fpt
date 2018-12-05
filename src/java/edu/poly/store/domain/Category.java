@@ -1,7 +1,6 @@
 package edu.poly.store.domain;
-// Generated Dec 4, 2018 4:57:47 PM by Hibernate Tools 4.3.1
+// Generated Dec 4, 2018 9:23:17 PM by Hibernate Tools 4.3.1
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -19,7 +18,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Category",
         schema = "dbo",
-        catalog = "ManagerPhone_ASS4"
+        catalog = "ManagerPhone"
 )
 public class Category implements java.io.Serializable {
 

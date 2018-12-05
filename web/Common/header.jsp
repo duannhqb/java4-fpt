@@ -51,6 +51,9 @@
                                                         </c:if>
                                                         <c:if test="${not empty user}">
                                                             <a href="UserController?action=go-to-profe" class="nav-text-right material-click material-on-me">Chào ${user.fullName}</a> | 
+                                                            <c:if test="${user.role==true}">
+                                                                <a href="UserController?action=go-to-dashboad" class="nav-text-right material-click material-on-me">Dashboad</a> | 
+                                                            </c:if>
                                                             <a href="UserController?action=logout" class="nav-text-right material-click material-on-me">Đăng xuất</a> | 
                                                         </c:if>
 

@@ -1,5 +1,5 @@
 package edu.poly.store.domain;
-// Generated Dec 4, 2018 4:57:47 PM by Hibernate Tools 4.3.1
+// Generated Dec 4, 2018 9:23:17 PM by Hibernate Tools 4.3.1
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,8 +16,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CartDetail",
-        schema = "dbo",
-        catalog = "ManagerPhone_ASS4"
+         schema = "dbo",
+         catalog = "ManagerPhone"
 )
 public class CartDetail implements java.io.Serializable {
 

@@ -8,6 +8,7 @@ package edu.poly.store.controllers;
 import edu.poly.store.domain.Users;
 import edu.poly.store.service.UsersService;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,6 +48,144 @@ public class UserController extends HttpServlet {
         } else if (action.equals("logout")) {
             logoutAndShowHomePage(usersService, request, response);
             return;
+        } else if (action.equals("update-user")) {
+            updateUserAndShowDatHangPage(usersService, request, response);
+            return;
+        } else if (action.equals("go-to-list-form")) {
+            showListPage(usersService, request, response);
+            return;
+        } else if (action.equals("go-to-edit-form")) {
+            showEditPage(usersService, request, response);
+            return;
+        } else if (action.equals("go-to-find-form")) {
+            findUser(usersService, request, response);
+            return;
+        } else if (action.equals("update")) {
+            updateUserAndShowFormEdit(usersService, request, response);
+            return;
+        } else if (action.equals("go-to-dashboad")) {
+            showDashboadPage(request, response);
+            return;
+        } else if (action.equals("go-to-add-form")) {
+            showAddPage(request, response);
+            return;
+        } else if (action.equals("add-new")) {
+            addNewUser(usersService, request, response);
+            return;
+        } else if (action.equals("search")) {
+            findUser(usersService, request, response);
+            return;
+        }
+    }
+
+    private void findUser(UsersService usersService, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String name = request.getParameter("value-search");
+        List<Users> listUserFind = usersService.findUser(name);
+        request.setAttribute("listUser", listUserFind);
+        request.getRequestDispatcher("Users/search.jsp").forward(request, response);
+    }
+
+    private void addNewUser(UsersService usersService, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String fullname = request.getParameter("hoTen");
+        String phoneNumber = request.getParameter("sdt");
+        String email = request.getParameter("email");
+        String address = request.getParameter("address");
+        boolean quyen = Boolean.parseBoolean(request.getParameter("quyen"));
+
+        Users user = new Users();
+        user.setAddress(address);
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setFullName(fullname);
+        user.setNumberPhone(phoneNumber);
+        user.setEmail(email);
+        user.setRole(quyen);
+
+        if (usersService.addUser(user) != null) {
+            showListPage(usersService, request, response);
+        } else {
+            request.setAttribute("infomation", "Thêm mới thất bại!");
+            showAddPage(request, response);
+        }
+
+    }
+
+    private void showAddPage(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getRequestDispatcher("Users/add.jsp").forward(request, response);
+    }
+
+    private void showDashboadPage(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getRequestDispatcher("VIEWS/Admin/Home.jsp").forward(request, response);
+    }
+
+    private void updateUserAndShowFormEdit(UsersService usersService, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int userId = Integer.parseInt(request.getParameter("userId"));
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String fullname = request.getParameter("hoTen");
+        String phoneNumber = request.getParameter("sdt");
+        String email = request.getParameter("email");
+        String address = request.getParameter("address");
+        boolean quyen = Boolean.parseBoolean(request.getParameter("quyen"));
+
+        Users user = new Users();
+        user.setUsersId(userId);
+        user.setAddress(address);
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setFullName(fullname);
+        user.setNumberPhone(phoneNumber);
+        user.setEmail(email);
+        user.setRole(quyen);
+
+        if (usersService.updateUser(user) != null) {
+            showListPage(usersService, request, response);
+        } else {
+            request.setAttribute("infomation", "Cập nhật thất bại!");
+            showEditPage(usersService, request, response);
+        }
+
+    }
+
+    private void showEditPage(UsersService usersService, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int userId = Integer.parseInt(request.getParameter("userId"));
+        request.setAttribute("infUser", usersService.getUserById(userId));
+        request.getRequestDispatcher("Users/edit.jsp").forward(request, response);
+    }
+
+    private void showListPage(UsersService usersService, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setAttribute("listUser", usersService.listUser());
+        request.getRequestDispatcher("Users/list.jsp").forward(request, response);
+    }
+
+    private void updateUserAndShowDatHangPage(UsersService usersService, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String fullName = request.getParameter("hoTen");
+        String phoneNumber = request.getParameter("sdt");
+        String email = request.getParameter("email");
+        String address = request.getParameter("address");
+//        lấy user đang đăng nhập
+        Users user = (Users) request.getSession().getAttribute("user");
+        user.setFullName(fullName);
+        user.setNumberPhone(phoneNumber);
+        user.setEmail(email);
+        user.setAddress(address);
+
+        if (usersService.updateUser(user) == null) {
+            request.setAttribute("userInf", "Cập nhật thất bại");
+            request.getRequestDispatcher("VIEWS/ThongTinThanhToan.jsp").forward(request, response);
+        } else {
+            request.setAttribute("userInf", "Cập nhật thành công");
+            request.getRequestDispatcher("VIEWS/DatHang.jsp").forward(request, response);
         }
     }
 

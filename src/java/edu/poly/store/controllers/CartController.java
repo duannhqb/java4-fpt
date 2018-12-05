@@ -5,8 +5,16 @@
  */
 package edu.poly.store.controllers;
 
+import edu.poly.store.domain.Cart;
+import edu.poly.store.domain.CartDetail;
+import edu.poly.store.domain.ShoppingCart;
+import edu.poly.store.domain.Users;
+import edu.poly.store.service.CartDetailService;
+import edu.poly.store.service.CartService;
+import edu.poly.store.service.ProductService;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Date;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,17 +40,54 @@ public class CartController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CartController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CartController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        request.setCharacterEncoding("utf-8");
+        String action = request.getParameter("action");
+        CartService cartService;
+        if (action.equals("dat-hang")) {
+            cartService = new CartService();
+            datHangProcess(cartService, request, response);
+            return;
+        }
+    }
+
+    private void datHangProcess(CartService cartService, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            ProductService productService = new ProductService();
+            boolean kieutThanhToan = Boolean.parseBoolean(request.getParameter("kieutThanhToan"));
+//        false : tại nhà
+//        true : tại cửa hàng
+
+            List<ShoppingCart> listShoppingCart = (List<ShoppingCart>) request.getSession().getAttribute("shoppingCart");
+            int tongThanhToan = 0;
+
+            for (ShoppingCart shoppingCart : listShoppingCart) {
+                tongThanhToan += shoppingCart.getPrice() * shoppingCart.getQuantity();
+            }
+
+            Users user = (Users) request.getSession().getAttribute("user");
+            Cart cart = new Cart();
+            cart.setUsers(user);
+            cart.setTotal(tongThanhToan);
+            cart.setPaymentDate(new Date());
+            cart.setCartStatus(false); // mặc định là false : chưa được duyệt
+            cart.setCachThanhToan(kieutThanhToan);
+            
+            Cart c = cartService.addCart(cart);
+
+            for (ShoppingCart shoppingCart : listShoppingCart) {
+                CartDetail cartDetail = new CartDetail();
+                cartDetail.setCart(c);
+                cartDetail.setProduct(productService.getProductById(shoppingCart.getProductId()));
+                cartDetail.setQuantity(shoppingCart.getQuantity());
+
+                CartDetailService cartDetailService = new CartDetailService();
+                cartDetailService.addCartDetail(cartDetail);
+            }
+            
+            request.getSession().removeAttribute("shoppingCart");
+            request.getRequestDispatcher("ApiController?action=remove-shopping-cart").forward(request, response);
+        } catch (Exception e) {
         }
     }
 
