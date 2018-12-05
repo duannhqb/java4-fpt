@@ -115,3 +115,10 @@ $(document).ready(function () {
 //    y = e.pageY - element.offset().top - circle.height() / 2;
 //    circle.css({top: y + 'px', left: x + 'px'}).addClass("md-click-animate");
 //});
+
+$('.spinner .btn:first-of-type').on('click', function () {
+    $('.spinner input').val(parseInt($('.spinner input').val(), 10) + 1);
+});
+$('.spinner .btn:last-of-type').on('click', function () {
+    $('.spinner input').val(parseInt($('.spinner input').val(), 10) - 1);
+});

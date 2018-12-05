@@ -5,6 +5,8 @@
  */
 package edu.poly.store.controllers;
 
+import edu.poly.store.domain.Product;
+import edu.poly.store.service.CategoryService;
 import edu.poly.store.service.ProductService;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -56,6 +58,36 @@ public class ProductController extends HttpServlet {
         } else if (action.equals("go-to-edit-form")) {
             showEditPage(productService, request, response);
             return;
+        } else if (action.equals("update")) {
+            updateProductDashboad(productService, request, response);
+            return;
+        }
+    }
+
+    private void updateProductDashboad(ProductService productService, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int productId = Integer.parseInt(request.getParameter("productId"));
+        String productName = request.getParameter("productName");
+        int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+        String image = "";
+        int price = Integer.parseInt(request.getParameter("price"));
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+
+        CategoryService categoryService = new CategoryService();
+
+        Product product = new Product();
+        product.setProductId(productId);
+        product.setProductName(productName);
+        product.setCategory(categoryService.getCategoryById(categoryId));
+        product.setImage(image);
+        product.setPrice(price);
+        product.setQuantity(quantity);
+
+        if (productService.updateProduct(product) == null) {
+            request.setAttribute("infomation", "Cập nhật thất bại!");
+            showEditPage(productService, request, response);
+        } else {
+            showListPage(productService, request, response);
         }
     }
 
@@ -63,6 +95,9 @@ public class ProductController extends HttpServlet {
             throws ServletException, IOException {
         int productId = Integer.parseInt(request.getParameter("productId"));
         request.setAttribute("product", productService.getProductById(productId));
+
+        CategoryService categoryService = new CategoryService();
+        request.setAttribute("category", categoryService.listCategory());
         request.getRequestDispatcher("Product/edit.jsp").forward(request, response);
     }
 
