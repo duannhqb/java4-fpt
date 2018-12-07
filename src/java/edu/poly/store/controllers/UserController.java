@@ -6,6 +6,9 @@
 package edu.poly.store.controllers;
 
 import edu.poly.store.domain.Users;
+import edu.poly.store.service.CartService;
+import edu.poly.store.service.CategoryService;
+import edu.poly.store.service.ProductService;
 import edu.poly.store.service.UsersService;
 import java.io.IOException;
 import java.util.List;
@@ -46,7 +49,7 @@ public class UserController extends HttpServlet {
             showRegistration(request, response);
             return;
         } else if (action.equals("logout")) {
-            logoutAndShowHomePage(usersService, request, response);
+            logoutAndShowHomePage(request, response);
             return;
         } else if (action.equals("update-user")) {
             updateUserAndShowDatHangPage(usersService, request, response);
@@ -63,7 +66,7 @@ public class UserController extends HttpServlet {
         } else if (action.equals("update")) {
             updateUserAndShowFormEdit(usersService, request, response);
             return;
-        } else if (action.equals("go-to-dashboad")) {
+        } else if (action.equals("go-to-dashboard")) {
             showDashboadPage(request, response);
             return;
         } else if (action.equals("go-to-add-form")) {
@@ -121,6 +124,15 @@ public class UserController extends HttpServlet {
 
     private void showDashboadPage(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        UsersService usersService = new UsersService();
+        CategoryService categoryService = new CategoryService();
+        ProductService productService = new ProductService();
+        CartService cartService = new CartService();
+
+        request.setAttribute("countUser", usersService.listUser().size());
+        request.setAttribute("countCategory", categoryService.listCategory().size());
+        request.setAttribute("countProduct", productService.listProduct().size());
+        request.setAttribute("countCart", cartService.listCart().size());
         request.getRequestDispatcher("VIEWS/Admin/Home.jsp").forward(request, response);
     }
 
@@ -189,7 +201,7 @@ public class UserController extends HttpServlet {
         }
     }
 
-    private void logoutAndShowHomePage(UsersService usersService, HttpServletRequest request, HttpServletResponse response)
+    private void logoutAndShowHomePage(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getSession().removeAttribute("user");
         request.getRequestDispatcher("ProductController?action=go-to-home").forward(request, response);

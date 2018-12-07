@@ -7,6 +7,8 @@ package edu.poly.store.controllers;
 
 import edu.poly.store.domain.ShoppingCart;
 import edu.poly.store.domain.Users;
+import edu.poly.store.service.CategoryService;
+import edu.poly.store.service.ProductService;
 import edu.poly.store.service.UsersService;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -68,14 +70,33 @@ public class ApiController extends HttpServlet {
         } else if (action.equals("remove-shopping-cart")) {
             removeShoppingCart(request, response);
             return;
-        } else if (action.equals("remove-user-dashboad")) {
+        } else if (action.equals("remove-user-dashboard")) {
             usersService = new UsersService();
-            removeUserInDashboad(usersService, request, response);
+            removeUserInDashboard(usersService, request, response);
+            return;
+        } else if (action.equals("remove-product-dashboard")) {
+            removeProductInDashboard(request, response);
+            return;
+        } else if (action.equals("remove-category-dashboard")) {
+            removeCategoryInDashboard(request, response);
             return;
         }
     }
 
-    private void removeUserInDashboad(UsersService usersService, HttpServletRequest request, HttpServletResponse response)
+    private void removeCategoryInDashboard(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        CategoryService categoryService = new CategoryService();
+        categoryService.removeCategory(Integer.parseInt(request.getParameter("categoryId")));
+    }
+
+    private void removeProductInDashboard(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        ProductService productService = new ProductService();
+        int productId = Integer.parseInt(request.getParameter("productId"));
+        productService.removeProduct(productId);
+    }
+
+    private void removeUserInDashboard(UsersService usersService, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int userId = Integer.parseInt(request.getParameter("userId"));
         usersService.removeUser(userId);

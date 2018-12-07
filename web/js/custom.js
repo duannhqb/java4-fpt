@@ -180,10 +180,8 @@ $('#event-registration').click(function () {
     return false;
 });
 
-
-
-//  Xóa user in dashboad
-$('.remove-user-dashboad').click(function () {
+//  Xóa user in dashboard
+$('.remove-user-dashboard').click(function () {
     let ss = $(this);
     let userId = $(this).closest('tr').find('.userId').text();
 
@@ -191,8 +189,68 @@ $('.remove-user-dashboad').click(function () {
         type: 'POST',
         url: "/Duannhpd02217_ASS_JAVA4/ApiController",
         data: {
-            action: "remove-user-dashboad",
+            action: "remove-user-dashboard",
             userId: userId
+        },
+        success: function () {
+            ss.closest('tr').remove();
+        }
+    });
+
+    return false;
+});
+
+
+//  Xóa san pham in dashboard
+$('.remove-product-dashboard').click(function () {
+    let ss = $(this);
+    let productId = $(this).closest('tr').find('.productId').text();
+
+    $.ajax({
+        type: 'POST',
+        url: "/Duannhpd02217_ASS_JAVA4/ApiController",
+        data: {
+            action: "remove-product-dashboard",
+            productId: productId
+        },
+        success: function () {
+            ss.closest('tr').remove();
+        }
+    });
+
+    return false;
+});
+
+// upload image
+//let files = [];
+//$('#image').change(function (event) {
+//    files = event.target.files;
+//
+//    forms = new FormData();
+//    forms.append("file", files[0]);
+//
+//    $.ajax({
+//        type: 'POST',
+//        url: "/Duannhpd02217_ASS_JAVA4/ApiController",
+//        data: {forms, action:"upload-image"},
+//        contentType: false,
+//        processData: false,
+//        enctype: "multipart/form-data"
+//    });
+//});
+
+
+//  Xóa category in dashboard
+$('.remove-category-dashboard').click(function () {
+    let ss = $(this);
+    let categoryId = $(this).closest('tr').find('.categoryId').text();
+
+    $.ajax({
+        type: 'POST',
+        url: "/Duannhpd02217_ASS_JAVA4/ApiController",
+        data: {
+            action: "remove-category-dashboard",
+            categoryId: categoryId
         },
         success: function () {
             ss.closest('tr').remove();

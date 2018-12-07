@@ -22,5 +22,7 @@ public interface CartImpl {
 
     public List<Cart> listCart();
 
+    public List<Cart> findCartById(int cartId);
+
     public Cart getCartById(int id);
 }

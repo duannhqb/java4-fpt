@@ -48,7 +48,7 @@ public class CategoryRepository implements CategoryImpl {
     @Override
     public List<Category> findCategory(String categoryName) {
         Query query = this.session.createQuery("from Category where CategoryName like :name");
-        query.setParameter("name", categoryName);
+        query.setParameter("name", "%" + categoryName + "%");
         return query.list();
     }
 

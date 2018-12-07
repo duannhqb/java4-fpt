@@ -52,7 +52,7 @@
                                                         <c:if test="${not empty user}">
                                                             <a href="UserController?action=go-to-profe" class="nav-text-right material-click material-on-me">Chào ${user.fullName}</a> | 
                                                             <c:if test="${user.role==true}">
-                                                                <a href="UserController?action=go-to-dashboad" class="nav-text-right material-click material-on-me">Dashboad</a> | 
+                                                                <a href="UserController?action=go-to-dashboard" class="nav-text-right material-click material-on-me">BẢNG ĐIỀU KHIỂN</a> | 
                                                             </c:if>
                                                             <a href="UserController?action=logout" class="nav-text-right material-click material-on-me">Đăng xuất</a> | 
                                                         </c:if>

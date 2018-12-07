@@ -24,7 +24,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Manager phone</a>
+                    <a class="navbar-brand" href="ProductController">Manager phone</a>
                 </div>
                 <!-- /.navbar-header -->
                 <ul class="nav navbar-top-links navbar-right">
@@ -121,38 +121,55 @@
                                 </div>
                             </li>
                             <li>
-                                <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                                <a href="UserController?action=go-to-dashboard"><i class="fa fa-dashboard fa-fw"></i> Bảng điều khiển</a>
                             </li>
 
                             <li>
-                                <a><i class="fa fa-bar-chart-o fa-fw"></i> Users<span class="fa arrow"></span></a>
+                                <a><i class="fa fa-bar-chart-o fa-fw"></i> Người dùng<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="UserController?action=go-to-list-form"> List users</a>
+                                        <a href="UserController?action=go-to-list-form"> Danh sách người dùng</a>
                                     </li>
                                     <li>
-                                        <a href="UserController?action=go-to-find-form&value-search= "> Find users</a>
+                                        <a href="UserController?action=go-to-find-form&value-search= "> Tìm kiếm người dùng</a>
                                     </li>
                                 </ul>
                             </li>
 
                             <li>
-                                <a><i class="fa fa-bar-chart-o fa-fw"></i> Products<span class="fa arrow"></span></a>
+                                <a><i class="fa fa-bar-chart-o fa-fw"></i> Sản phẩm<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="ProductController?action=go-to-list-form"> List product</a>
+                                        <a href="ProductController?action=go-to-list-form"> Danh sách sản phẩm</a>
                                     </li>
                                     <li>
-                                        <a href="ProductController?action=go-to-find-form"> Find product</a>
+                                        <a href="ProductController?action=go-to-find-form&value-search= "> Tìm kiếm sản phẩm</a>
                                     </li>
                                 </ul>
                             </li>
 
                             <li>
-                                <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
+                                <a><i class="fa fa-bar-chart-o fa-fw"></i> Loại sản phẩm<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="CategoryController?action=go-to-list-form"> Danh sách loại sản phẩm</a>
+                                    </li>
+                                    <li>
+                                        <a href="CategoryController?action=go-to-find-form&value-search= "> Tìm kiếm loại sản phẩm</a>
+                                    </li>
+                                </ul>
                             </li>
+
                             <li>
-                                <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
+                                <a><i class="fa fa-bar-chart-o fa-fw"></i> Hóa đơn<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="CartController?action=go-to-list-form"> Danh sách đơn hàng</a>
+                                    </li>
+                                    <li>
+                                        <a href="CartController?action=go-to-find-form&value-search= "> Tra cứu hóa đơn</a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     </div>

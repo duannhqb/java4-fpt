@@ -5,33 +5,34 @@
 
 <div id="page-wrapper">
     <div class="container">
-        <div class="row" style="margin-top: 20px">
-            <div class="col-md-4">
-                <h2>Dashboard PRODUCT</h2>
-            </div>
+    </div>
 
-            <div class="col-md-7" style="top: 17px; left: -19px;">
-                <form action="ProductController">
-                    <div class="input-group">
-                        <input type="hidden" name="action" value="search"/>
-                        <input type="text" name="value-search" value="" class="form-control" placeholder="Tìm kiếm với tên sản phẩm...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="submit">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </span>
-                    </div>
-                </form>
-            </div>
+    <div class="row" style="margin-top: 20px">
+        <div class="col-md-5">
+            <h3>BẢNG ĐIỀU KHIỂN NGƯỜI DÙNG</h3>
+        </div>
+
+        <div class="col-md-7" style="top: 17px; left: -19px;">
+            <form action="ProductController">
+                <div class="input-group">
+                    <input type="hidden" name="action" value="search"/>
+                    <input type="text" name="value-search" value="" class="form-control" placeholder="Tìm kiếm với tên sản phẩm...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </form>
         </div>
     </div>
     <!-- /.row -->
 
-    <div class="row" style="margin-top: 25px">
+    <div class="row" style="margin-top: 32px">
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <i class="fa fa-bar-chart-o fa-fw"></i> LIST PRODUCTS
+                    <i class="fa fa-bar-chart-o fa-fw"></i> DANH SÁCH SẢN PHẨM
 
                     <div class="pull-right">
                         <div class="btn-group">
@@ -40,7 +41,7 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu pull-right" role="menu">
-                                <li><a href="ProductController?action=go-to-add-form">Thêm mới PRODUCT</a>
+                                <li><a href="ProductController?action=go-to-add-form">Thêm mới sản phẩm</a>
                                 </li>
                             </ul>
                         </div>
@@ -51,20 +52,20 @@
                         <thead>
                             <tr>
                                 <th class="text-center">ID</th>
-                                <th class="text-center">Loại sản phẩm</th>
                                 <th class="text-center">Sản phẩm</th>
+                                <th class="text-center">Loại sản phẩm</th>
                                 <th class="text-center">Ảnh</th>
                                 <th class="text-center">Đơn giá</th>
                                 <th class="text-center">Số lượng tồn kho</th>
-                                <th> </th>
+                                <th class="text-center">Chức năng</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach var="product" items="${listProduct}">
                                 <tr>
-                                    <td class="productId">${product.productId}</td>
-                                    <td>${product.getCategory().getCategoryName()}</td>
+                                    <td class="productId text-center">${product.productId}</td>
                                     <td class="text-center">${product.productName}</td>
+                                    <td class="text-center">${product.getCategory().getCategoryName()}</td>
                                     <td class="text-center">${product.image}</td>
                                     <td class="text-center">${product.price}</td>
                                     <td class="text-center">${product.quantity}</td>
@@ -76,7 +77,7 @@
                                             <i class="fa fa-edit"></i>
                                         </a>
 
-                                        <button class="btn button btn-warning btn-sm remove-product-dashboad">
+                                        <button class="btn button btn-warning btn-sm remove-product-dashboard">
                                             <div class="ripples buttonRipples">
                                                 <span class="ripplesCircle"></span>
                                             </div>

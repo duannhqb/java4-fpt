@@ -130,4 +130,19 @@ public class CartService implements CartImpl {
         }
     }
 
+    @Override
+    public List<Cart> findCartById(int cartId) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        cartRepository.getSession(session);
+        try {
+            return this.cartRepository.findCartById(cartId);
+        } finally {
+            try {
+                if (session != null) {
+                    session.close();
+                }
+            } catch (Exception e) {
+            }
+        }
+    }
 }

@@ -8,6 +8,7 @@ package edu.poly.store.repositories;
 import edu.poly.store.domain.Cart;
 import edu.poly.store.repositoresImpl.CartImpl;
 import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
@@ -47,6 +48,13 @@ public class CartRepository implements CartImpl {
     @Override
     public Cart getCartById(int id) {
         return (Cart) this.session.get(Cart.class, id);
+    }
+
+    @Override
+    public List<Cart> findCartById(int cartId) {
+        Query query = this.session.createQuery("from Cart where cartId like :id");
+        query.setParameter("id", "%" + cartId + "%");
+        return query.list();
     }
 
 }

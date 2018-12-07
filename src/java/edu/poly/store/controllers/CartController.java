@@ -42,12 +42,71 @@ public class CartController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
         String action = request.getParameter("action");
-        CartService cartService;
+        CartService cartService = new CartService();
         if (action.equals("dat-hang")) {
-            cartService = new CartService();
             datHangProcess(cartService, request, response);
             return;
+        } else if (action.equals("go-to-list-form")) {
+            showListCart(cartService, request, response);
+            return;
+        } else if (action.equals("view-detail")) {
+            showCartDetailByCartId(cartService, request, response);
+            return;
+        } else if (action.equals("duyet-don-hang")) {
+            duyetDonHang(cartService, request, response);
+            return;
+        } else if (action.equals("huy-duyet-don-hang")) {
+            huyDuyetDonHang(cartService, request, response);
+            return;
+        } else if (action.equals("go-to-find-form")) {
+            searchCart(cartService, request, response);
+            return;
+        } else if (action.equals("search")) {
+            searchCart(cartService, request, response);
+            return;
         }
+    }
+
+    private void searchCart(CartService cartService, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            int value = Integer.parseInt(request.getParameter("value-search"));
+            request.setAttribute("listCart", cartService.findCartById(value));
+            request.getRequestDispatcher("Cart/search.jsp").forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("listCart", cartService.listCart());
+            request.getRequestDispatcher("Cart/search.jsp").forward(request, response);
+        }
+    }
+
+    private void huyDuyetDonHang(CartService cartService, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Cart cart = cartService.getCartById(Integer.parseInt(request.getParameter("cartId")));
+        cart.setCartStatus(false);
+        cartService.updateCart(cart);
+        showListCart(cartService, request, response);
+    }
+
+    private void duyetDonHang(CartService cartService, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Cart cart = cartService.getCartById(Integer.parseInt(request.getParameter("cartId")));
+        cart.setCartStatus(true);
+        cartService.updateCart(cart);
+        showListCart(cartService, request, response);
+    }
+
+    private void showCartDetailByCartId(CartService cartService, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int cardId = Integer.parseInt(request.getParameter("cartId"));
+        request.setAttribute("listCartDetail", cartService.getCartById(cardId).getCartDetails());
+        request.setAttribute("cart", cartService.getCartById(cardId));
+        request.getRequestDispatcher("CartDetail/invoiceDetail.jsp").forward(request, response);
+    }
+
+    private void showListCart(CartService cartService, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setAttribute("listCart", cartService.listCart());
+        request.getRequestDispatcher("Cart/list.jsp").forward(request, response);
     }
 
     private void datHangProcess(CartService cartService, HttpServletRequest request, HttpServletResponse response)
@@ -72,7 +131,7 @@ public class CartController extends HttpServlet {
             cart.setPaymentDate(new Date());
             cart.setCartStatus(false); // mặc định là false : chưa được duyệt
             cart.setCachThanhToan(kieutThanhToan);
-            
+
             Cart c = cartService.addCart(cart);
 
             for (ShoppingCart shoppingCart : listShoppingCart) {
@@ -84,7 +143,7 @@ public class CartController extends HttpServlet {
                 CartDetailService cartDetailService = new CartDetailService();
                 cartDetailService.addCartDetail(cartDetail);
             }
-            
+
             request.getSession().removeAttribute("shoppingCart");
             request.getRequestDispatcher("ApiController?action=remove-shopping-cart").forward(request, response);
         } catch (Exception e) {

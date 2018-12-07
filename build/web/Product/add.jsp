@@ -5,71 +5,53 @@
 
 <div id="page-wrapper">
     <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">Dashboard USER</h1>
-        </div>
-        <!-- /.col-lg-12 -->
-    </div>
-    <!-- /.row -->
-
-    <div class="row">
-        <form action="UserController" method="POST">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <i class="fa fa-bar-chart-o fa-fw"></i> ADD NEW USER
-                </div>
-                <div class="panel-body">
-
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" class="form-control" name="username" id="username" placeholder="Nhập username" value="${infUser.username}">
+        <div class="col-md-10 col-md-push-1">
+            <!--<form action="ProductController" method="post" enctype="multipart/form-data">-->
+            <form action="ProductController" method="GET">
+                <div class="panel panel-default" style="margin-top: 20px;">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> THÊM MỚI SẢN PHẨM
                     </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="productName">Tên sản phẩm</label>
+                            <input type="text" class="form-control" name="productName" id="productName" placeholder="Nhập tên sản phẩm" value="${param.productName}">
+                        </div>
 
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" name="password" id="password" placeholder="Nhập password" value="${infUser.password}">
-                    </div>
+                        <label for="categoryId">Loại sản phẩm</label>
+                        <select name="categoryId" id="categoryId" class="form-control">
+                            <c:forEach var="category" items="${category}">
+                                <option value="${category.categoryId}">${category.categoryName}</option>
+                            </c:forEach>
+                        </select>
 
-                    <div class="form-group">
-                        <label for="hoTen">Họ và tên</label>
-                        <input type="text" class="form-control" name="hoTen" id="hoTen" placeholder="Họ và tên" value="${infUser.fullName}">
-                    </div>
+                        <div class="form-group">
+                            <label for="image">Ảnh</label>
+                            <input type="file" id="image" name="image">
+                            <p class="help-block">Ảnh để hiển thị cho sản phẩm.</p>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="sdt">Số điện thoại</label>
-                        <input type="text" class="form-control" name="sdt" id="sdt" placeholder="Số điện thoại" value="${infUser.numberPhone}">
-                    </div>
+                        <div class="form-group">
+                            <label for="price">Đơn giá</label>
+                            <input type="text" class="form-control" name="price" id="hoTen" placeholder="Nhập đơn giá của sản phẩm" value="${param.price}">
+                        </div>
 
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="text" class="form-control" name="email" id="email" placeholder="Email" value="${infUser.email}">
-                    </div>
-
-                    <div class="form-group">
-                        <div class="radio">
-                            <label><input type="radio" name="quyen" value="false" checked>Người mua hàng</label>
+                        <label for="quantity">Số lượng</label>
+                        <div class="input-group spinner">
+                            <input type="text" name="quantity" id="quantity" class="form-control" value="${param.quantity == null? 50 : param.quantity}">
+                            <div class="input-group-btn-vertical">
+                                <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <div class="radio">
-                            <label><input type="radio" name="quyen" value="true">Quản lý</label>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="address">Địa chỉ</label>
-                        <input type="text" class="form-control" name="address" id="address" placeholder="Địa chỉ" value="${infUser.address}">
-                    </div>
-                </div>
-                <!--end panel body--> 
-                <div class="panel-footer">
-                    <div class="container">
+                    <!--end panel body--> 
+                    <div class="panel-footer">
                         <div class="row">
                             <div class="col-md-9">                                    
-                                <a href="UserController?action=go-to-list-form" class="btn btn-primary">Trở lại</a>
+                                <a href="ProductController?action=go-to-list-form" class="btn btn-primary">Trở lại</a>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3 text-right">
                                 <input type="hidden" name="action" value="add-new"/>
                                 <label style="color: red;">${infomation}</label>
                                 <button type="submit" class="btn btn-success">Thêm mới</button>
@@ -77,11 +59,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 <!-- /#wrapper -->
-
 
 <%@include file="../Common/Dashboad-admin-footer.jsp" %>

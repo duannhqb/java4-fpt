@@ -8,6 +8,7 @@ package edu.poly.store.repositories;
 import edu.poly.store.repositoresImpl.ProductImpl;
 import edu.poly.store.domain.Product;
 import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
@@ -49,7 +50,9 @@ public class ProductRepository implements ProductImpl {
 
     @Override
     public List<Product> findProduct(String ProductName) {
-        return this.session.createQuery("from Product where ProductName like %" + ProductName + "%").list();
+        Query query = this.session.createQuery("from Product where ProductName like :name");
+        query.setParameter("name", "%" + ProductName + "%");
+        return query.list();
     }
 
     @Override
